@@ -21,6 +21,10 @@ model User {
   largeImage   String?
   smallImage   String?
   smallText    String?
+  btn1Text     String?
+  btn1Url      String?
+  btn2Text     String?
+  btn2Url      String?
   sessionToken String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt

@@ -111,6 +111,18 @@ export async function POST(request: NextRequest) {
           if (user.smallText) activity.assets.smallText = user.smallText;
         }
 
+        // Add buttons if provided
+        const buttons = [];
+        if (user.btn1Text && user.btn1Url) {
+          buttons.push({ label: user.btn1Text, url: user.btn1Url });
+        }
+        if (user.btn2Text && user.btn2Url) {
+          buttons.push({ label: user.btn2Text, url: user.btn2Url });
+        }
+        if (buttons.length > 0) {
+          activity.buttons = buttons;
+        }
+
         // Update Discord presence
         try {
           const result = await activityManager.update(

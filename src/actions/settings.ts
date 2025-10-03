@@ -6,8 +6,6 @@ import { revalidatePath } from "next/cache";
 import { ActivityManager } from "./activityManager";
 import { z } from "zod";
 
-import "@/auth";
-
 const prisma = new PrismaClient();
 
 const SettingsSchema = z.object({
@@ -20,6 +18,10 @@ const SettingsSchema = z.object({
   largeImage: z.string().optional(),
   smallImage: z.string().optional(),
   smallText: z.string().optional(),
+  btn1Text: z.string().optional(),
+  btn1Url: z.string().url().optional().or(z.literal("")),
+  btn2Text: z.string().optional(),
+  btn2Url: z.string().url().optional().or(z.literal("")),
 });
 
 async function deleteHeadlessSession(
@@ -78,6 +80,10 @@ export async function saveSettings(formData: FormData) {
       largeImage: (formData.get("largeImage") as string) || undefined,
       smallImage: (formData.get("smallImage") as string) || undefined,
       smallText: (formData.get("smallText") as string) || undefined,
+      btn1Text: (formData.get("btn1Text") as string) || undefined,
+      btn1Url: (formData.get("btn1Url") as string) || undefined,
+      btn2Text: (formData.get("btn2Text") as string) || undefined,
+      btn2Url: (formData.get("btn2Url") as string) || undefined,
     };
 
     // Validate
@@ -117,6 +123,10 @@ export async function saveSettings(formData: FormData) {
         largeImage: validated.largeImage,
         smallImage: validated.smallImage,
         smallText: validated.smallText,
+        btn1Text: validated.btn1Text,
+        btn1Url: validated.btn1Url || null,
+        btn2Text: validated.btn2Text,
+        btn2Url: validated.btn2Url || null,
       },
     });
 
@@ -147,6 +157,18 @@ export async function saveSettings(formData: FormData) {
           activity.assets.smallImage = validated.smallImage;
         if (validated.smallText)
           activity.assets.smallText = validated.smallText;
+      }
+
+      // Add buttons if provided
+      const buttons = [];
+      if (validated.btn1Text && validated.btn1Url) {
+        buttons.push({ label: validated.btn1Text, url: validated.btn1Url });
+      }
+      if (validated.btn2Text && validated.btn2Url) {
+        buttons.push({ label: validated.btn2Text, url: validated.btn2Url });
+      }
+      if (buttons.length > 0) {
+        activity.buttons = buttons;
       }
 
       try {

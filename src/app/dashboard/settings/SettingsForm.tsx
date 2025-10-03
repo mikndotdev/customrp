@@ -16,6 +16,10 @@ type User = {
   largeImage: string | null;
   smallImage: string | null;
   smallText: string | null;
+  btn1Text: string | null;
+  btn1Url: string | null;
+  btn2Text: string | null;
+  btn2Url: string | null;
 };
 
 export default function SettingsForm({ user }: { user: User }) {
@@ -33,6 +37,10 @@ export default function SettingsForm({ user }: { user: User }) {
   const [largeImage, setLargeImage] = useState(user.largeImage || "");
   const [smallImage, setSmallImage] = useState(user.smallImage || "");
   const [smallText, setSmallText] = useState(user.smallText || "");
+  const [btn1Text, setBtn1Text] = useState(user.btn1Text || "");
+  const [btn1Url, setBtn1Url] = useState(user.btn1Url || "");
+  const [btn2Text, setBtn2Text] = useState(user.btn2Text || "");
+  const [btn2Url, setBtn2Url] = useState(user.btn2Url || "");
 
   const handleSubmit = async (formData: FormData) => {
     startTransition(async () => {
@@ -194,6 +202,68 @@ export default function SettingsForm({ user }: { user: User }) {
           value={smallText}
           onChange={(e) => setSmallText(e.target.value)}
         />
+      </div>
+
+      <div className="divider">Buttons</div>
+
+      {/* Button 1 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Button 1 Text</span>
+          </label>
+          <input
+            type="text"
+            name="btn1Text"
+            placeholder="e.g., Visit Website"
+            className="input input-bordered w-full"
+            value={btn1Text}
+            onChange={(e) => setBtn1Text(e.target.value)}
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Button 1 URL</span>
+          </label>
+          <input
+            type="url"
+            name="btn1Url"
+            placeholder="https://example.com"
+            className="input input-bordered w-full"
+            value={btn1Url}
+            onChange={(e) => setBtn1Url(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Button 2 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Button 2 Text</span>
+          </label>
+          <input
+            type="text"
+            name="btn2Text"
+            placeholder="e.g., GitHub"
+            className="input input-bordered w-full"
+            value={btn2Text}
+            onChange={(e) => setBtn2Text(e.target.value)}
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Button 2 URL</span>
+          </label>
+          <input
+            type="url"
+            name="btn2Url"
+            placeholder="https://github.com"
+            className="input input-bordered w-full"
+            value={btn2Url}
+            onChange={(e) => setBtn2Url(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Save Button */}
