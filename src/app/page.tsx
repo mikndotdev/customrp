@@ -17,7 +17,7 @@ export default function Home() {
             Get Started
           </Link>
           <a
-            href={"https://docs.mikn.dev/solutions/customrp"}
+            href={"https://docs.mikn.dev/solutions/general/customrp"}
             className={"btn btn-primary"}
             target={"_blank"}
             rel={"noreferrer"}
