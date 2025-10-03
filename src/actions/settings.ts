@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache";
 import { ActivityManager } from "./activityManager";
 import { z } from "zod";
 
+import "@/auth";
+
 const prisma = new PrismaClient();
 
 const SettingsSchema = z.object({
