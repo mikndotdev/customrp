@@ -2,6 +2,7 @@
 
 import { saveSettings } from "@/actions/settings";
 import { ActivityType } from "@/actions/activityManager";
+import { DiscordRichPresence, ActivityType as ComponentActivityType } from "@/components/RichPresence";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -264,6 +265,24 @@ export default function SettingsForm({ user }: { user: User }) {
             onChange={(e) => setBtn2Url(e.target.value)}
           />
         </div>
+      </div>
+
+        <div className="divider">Preview</div>
+
+      {/* Rich Presence Preview */}
+      <div className="mt-6 flex justify-center">
+        <DiscordRichPresence
+          activityType={type}
+          title={name}
+          details={details}
+          state={state}
+          largeImageKey={largeImage}
+          smallImageKey={smallImage}
+          button1Text={btn1Text}
+          button1Url={btn1Url}
+          button2Text={btn2Text}
+          button2Url={btn2Url}
+        />
       </div>
 
       {/* Save Button */}

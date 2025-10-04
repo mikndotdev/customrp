@@ -2,7 +2,7 @@ import { getSession } from "@mikandev/next-discord-auth/server-actions";
 import "@/auth";
 import { unauthorized } from "next/navigation";
 import { getUser } from "@/data/user";
-import SettingsForm from "./SettingsForm";
+import SettingsForm from "@/components/SettingsForm";
 import { logout } from "@/actions/auth";
 
 export default async function SettingsPage() {
