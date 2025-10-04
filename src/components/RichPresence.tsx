@@ -46,8 +46,13 @@ function getActivityTypeLabel(type: ActivityTypeValue): string {
 
 function formatElapsedTime(startTimestamp: number): string {
   const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
-  const minutes = Math.floor(elapsed / 60);
+  const hours = Math.floor(elapsed / 3600);
+  const minutes = Math.floor((elapsed % 3600) / 60);
   const seconds = elapsed % 60;
+
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  }
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
@@ -92,13 +97,13 @@ export function DiscordRichPresence({
         <span className="text-xs font-semibold text-[#b5bac1]">
           {getActivityTypeLabel(activityType)}
         </span>
-        <button className="text-[#b5bac1] hover:text-white">
+        <div className="text-[#b5bac1] hover:text-white">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <circle cx="12" cy="6" r="1.5" />
             <circle cx="12" cy="12" r="1.5" />
             <circle cx="12" cy="18" r="1.5" />
           </svg>
-        </button>
+        </div>
       </div>
 
       {/* Main Content */}
