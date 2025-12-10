@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     // Check authorization
     const authHeader = request.headers.get("authorization");
-    const expectedAuth = `Bearer ${process.env.API_PASSWORD}`;
+    const expectedAuth = `Bearer ${process.env.CRON_SECRET}`;
 
     if (!authHeader || authHeader !== expectedAuth) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
